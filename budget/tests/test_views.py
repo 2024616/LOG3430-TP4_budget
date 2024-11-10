@@ -19,14 +19,14 @@ class TestViews(TestCase):
 	def test_project_list_GET(self):
 		response = self.client.get(self.list_url)
 
-		self.assertEquals(response.status_code,200)
+		self.assertEqual(response.status_code,200)
 		self.assertTemplateUsed(response,'budget/project-list.html')
 
 
 	def test_project_detail_GET(self):
 		response = self.client.get(self.detail_url)
 
-		self.assertEquals(response.status_code,200)
+		self.assertEqual(response.status_code,200)
 		self.assertTemplateUsed(response,'budget/project-detail.html')
 
 
@@ -42,16 +42,16 @@ class TestViews(TestCase):
     		 'category': 'development'
     	})
 
-		self.assertEquals(response.status_code,302)
-		self.assertEquals(self.project1.expenses.first().title, 'expense1')
-		#self.assertEquals(self.project1.expenses.first().title, 'expense2')
+		self.assertEqual(response.status_code,302)
+		self.assertEqual(self.project1.expenses.first().title, 'expense1')
+		#self.assertEqual(self.project1.expenses.first().title, 'expense2')
 
 
 	def test_project_detail_POST_no_data(self):
 		response = self.client.post(self.detail_url)
 
-		self.assertEquals(response.status_code,302)
-		self.assertEquals(self.project1.expenses.count(), 0)
+		self.assertEqual(response.status_code,302)
+		self.assertEqual(self.project1.expenses.count(), 0)
 
 
 	def test_project_detail_DELETE_delets_expense(self):
@@ -71,8 +71,8 @@ class TestViews(TestCase):
 			'id': 1
 			} ))
 
-		self.assertEquals(response.status_code,204)
-		self.assertEquals(self.project1.expenses.count(),0)
+		self.assertEqual(response.status_code,204)
+		self.assertEqual(self.project1.expenses.count(),0)
 
 
 
@@ -92,8 +92,8 @@ class TestViews(TestCase):
 
 		response = self.client.delete(self.detail_url)
 
-		self.assertEquals(response.status_code,404)
-		self.assertEquals(self.project1.expenses.count(),1)
+		self.assertEqual(response.status_code,404)
+		self.assertEqual(self.project1.expenses.count(),1)
 
 
 	def test_project_create_POST(self):
@@ -105,13 +105,13 @@ class TestViews(TestCase):
 		})
 
 		project2 = Project.objects.get(id=2)
-		self.assertEquals(project2.name, 'project2')
+		self.assertEqual(project2.name, 'project2')
 		first_category = Category.objects.get(id=1)
-		self.assertEquals(first_category.project,project2)
-		self.assertEquals(first_category.name, 'design')
+		self.assertEqual(first_category.project,project2)
+		self.assertEqual(first_category.name, 'design')
 		second_category = Category.objects.get(id=2)
-		self.assertEquals(second_category.project,project2)
-		self.assertEquals(second_category.name,'development')
+		self.assertEqual(second_category.project,project2)
+		self.assertEqual(second_category.name,'development')
 
 
 
